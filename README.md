@@ -8,8 +8,6 @@ Convert JSON to a [`yup`](https://github.com/jquense/yup) schema
 
 ```typescript
 import parse from "yup-of-json";
-
-const result = parse(jsonSchema);
 ```
 
 ## Example
@@ -18,12 +16,18 @@ const result = parse(jsonSchema);
 
 ```json
 {
-  "name": "Killua Zoldyck",
-  "age": 14,
-  "address": {
+  "addresses": {
     "raw": "Kukuroo Mountain"
   },
-  "tags": ["cute"]
+  "age": 14,
+  "hunter": true,
+  "name": "Killua Zoldyck",
+  "role": null,
+  "tags": [
+    {
+      "label": "cute"
+    }
+  ]
 }
 ```
 
@@ -33,14 +37,25 @@ const result = parse(jsonSchema);
 yup
   .object()
   .shape({
-    name: yup.string().required(),
-    age: yup.number().required(),
-    address: yup
+    addresses: yup
       .object()
       .shape({ raw: yup.string().required() })
       .noUnknown()
       .required(),
-    tags: yup.array().of(yup.string().required()),
+    age: yup.number().required(),
+    hunter: yup.boolean().nullable(),
+    name: yup.string().required(),
+    role: yup.mixed().nullable(),
+    tags: yup
+      .array()
+      .of(
+        yup
+          .object()
+          .shape({ label: yup.string().required() })
+          .noUnknown()
+          .required()
+      )
+      .defined(),
   })
   .noUnknown()
   .required();

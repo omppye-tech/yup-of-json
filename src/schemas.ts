@@ -2,64 +2,92 @@ const useProperty = (baseSchema: string[], property?: string) =>
   property ? [property + ":", ...baseSchema] : baseSchema;
 
 export const getArraySchema = (property?: string) => {
-  const baseSchema = useProperty(["yup.array().of("], property);
+  const prefix = useProperty(["yup.array().of("], property);
+  const sufix = [")", ".defined()"];
+
   const operations = {
-    push: (schema: string) => baseSchema.push(schema),
-    stringify: () => baseSchema.join("") + "),",
+    push: (schema: string) => {
+      prefix.push(schema);
+
+      return schema;
+    },
+    stringify: () => [...prefix, ...sufix].join("") + ",",
   };
 
   return operations;
 };
 
 export const getBooleanSchema = (property?: string) => {
-  const baseSchema = useProperty(["yup.boolean().nullable(),"], property);
+  const prefix = useProperty(["yup.boolean()"], property);
+  const sufix = [".nullable()"];
+
   const operations = {
     push: (schema: string) => schema,
-    stringify: () => baseSchema.join(""),
+    stringify: () => [...prefix, ...sufix].join("") + ",",
   };
 
   return operations;
 };
 
 export const getNullSchema = (property?: string) => {
-  const baseSchema = useProperty(["yup.mixed().nullable(),"], property);
+  /**
+   * We don't know the type of the root value
+   * So we use the .mixed() schema
+   */
+
+  const prefix = useProperty(["yup.mixed()"], property);
+  const sufix = [".nullable()"];
+
   const operations = {
     push: (schema: string) => schema,
-    stringify: () => baseSchema.join(""),
+    stringify: () => [...prefix, ...sufix].join("") + ",",
   };
 
   return operations;
 };
 
 export const getNumberSchema = (property?: string) => {
-  const baseSchema = useProperty(["yup.number().required(),"], property);
+  const prefix = useProperty(["yup.number()"], property);
+  const sufix = [".required()"];
+
   const operations = {
     push: (schema: string) => schema,
-    stringify: () => baseSchema.join(""),
+    stringify: () => [...prefix, ...sufix].join("") + ",",
   };
 
   return operations;
 };
 
 export const getObjectSchema = (property?: string) => {
-  const baseSchema = useProperty(["yup.object().shape({"], property);
+  const prefix = useProperty(["yup.object().shape({"], property);
+  const sufix = ["})", ".noUnknown()", ".required()"];
+
   const operations = {
-    push: (schema: string) => baseSchema.push(schema),
-    stringify: () => baseSchema.join("") + "}).noUnknown().required(),",
+    push: (schema: string) => {
+      prefix.push(schema);
+
+      return schema;
+    },
+    stringify: () => [...prefix, ...sufix].join("") + ",",
   };
 
   return operations;
 };
 
 export const getStringSchema = (value: unknown, property?: string) => {
-  const baseSchema = useProperty(["yup.string()"], property);
-  if (value) {
-    baseSchema.push(".required()");
-  }
+  const prefix = useProperty(["yup.string()"], property);
+  const sufix: string[] = [];
+
+  /**
+   * With an empty string, .required() throws a validation error
+   * In such cases, type validation is more assertive :)
+   */
+
+  sufix.push(value ? ".required()" : ".typeError()");
 
   const operations = {
     push: (schema: string) => schema,
-    stringify: () => baseSchema.join("") + ",",
+    stringify: () => [...prefix, ...sufix].join("") + ",",
   };
 
   return operations;

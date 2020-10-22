@@ -1,5 +1,3 @@
-# See http://npm.github.io/publishing-pkgs-docs/publishing/the-npmignore-file.html for more about ignoring files.
-
 /.vscode
 /node_modules
 /src/**/*.ts
