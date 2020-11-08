@@ -1,9 +1,9 @@
 {
   "name": "yup-of-json",
   "description": "Convert JSON to a yup schema",
-  "version": "1.1.7",
-  "main": "dist/yup-of-json.js",
-  "types": "dist/yup-of-json.d.ts",
+  "version": "1.1.8",
+  "main": "build/yup-of-json.js",
+  "types": "build/yup-of-json.d.ts",
   "scripts": {
     "build": "tsc"
   },

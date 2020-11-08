@@ -6,7 +6,7 @@
     "esModuleInterop": true,
     "incremental": true,
     "module": "commonjs",
-    "outDir": "dist",
+    "outDir": "build",
     "sourceMap": true,
     "strict": true,
     "target": "es2019"
