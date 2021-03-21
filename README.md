@@ -20,6 +20,7 @@ import parse from "yup-of-json";
     "raw": "Kukuroo Mountain"
   },
   "age": 14,
+  "github": "https://github.com/weslenng",
   "hunter": true,
   "name": "Killua Zoldyck",
   "role": null,
@@ -43,6 +44,7 @@ yup
       .noUnknown()
       .required(),
     age: yup.number().required(),
+    github: yup.string().required(),
     hunter: yup.boolean().nullable(),
     name: yup.string().required(),
     role: yup.mixed().nullable(),
