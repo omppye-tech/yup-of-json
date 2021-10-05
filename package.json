@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc"
   },
-  "author": "Weslen Guerreiro <weslenng@outlook.com>",
+  "author": "Weslen Guerreiro <omppye@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "json-to-ast": "^2.1.0",

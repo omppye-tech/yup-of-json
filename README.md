@@ -2,7 +2,7 @@
 
 Convert JSON to a [`yup`](https://github.com/jquense/yup) schema
 
-- [Try it now!](https://yup-of-json.weslenng.dev/)
+- [Try it now!](https://yup-of-json.omppye.dev/)
 
 ## Usage
 
@@ -20,7 +20,7 @@ import parse from "yup-of-json";
     "raw": "Kukuroo Mountain"
   },
   "age": 14,
-  "github": "https://github.com/weslenng",
+  "github": "https://github.com/omppye",
   "hunter": true,
   "name": "Killua Zoldyck",
   "role": null,
