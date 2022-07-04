@@ -1,4 +1,4 @@
-# of JSON
+# Y of JSON
 
 Convert JSON to a [`yup`](https://github.com/jquense/yup) schema
 
